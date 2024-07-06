@@ -1,7 +1,6 @@
 {
     "userspace_version": "1.0",
     "build_targets": [
-        ["lily58/rev1", "jaysonmercurio"],
-        ["lily58", "jaysonmercurio"]
+        ["lily58/rev1", "jaysonmercurio"]
     ]
 }
