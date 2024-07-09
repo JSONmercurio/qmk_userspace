@@ -36,12 +36,13 @@ This is a template repository which allows for an external set of QMK keymaps to
     ```
     Otherwise, must hold the boot key (left button on MCU) when pluggin into PC.
 
-1. Must build and flash using 
+1. Must compile using 
     ```bash
-    qmk flash -e CONVERT_TO=promicro_rp2040
+    qmk compile -e CONVERT_TO=promicro_rp2040
     ```
     If default paths aren't set, the full command is 
     ```bash
-    qmk flash -kb <keyboard> -km <keymap> -e CONVERT_TO=promicro_rp2040
+    qmk compile -kb <keyboard> -km <keymap> -e CONVERT_TO=promicro_rp2040
     ```
+    Take the `.uf2` file and copy to board
 As far as I know, the workflow on github doesn't work, but could just need some updating.

@@ -28,8 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 
+#define GRAVE_ESC_CTRL_OVERRIDE
+
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
+#define TAPPING_TERM 200
 
 #undef RGBLIGHT_LED_COUNT
 #define RGBLIGHT_EFFECT_BREATHING
@@ -43,14 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LED_COUNT 27
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
 // Underglow
-/*
+
 #undef RGBLIGHT_LED_COUNT
-#define RGBLIGHT_LED_COUNT 14    // Number of LEDs
+#define RGBLIGHT_LED_COUNT 12    // Number of LEDs
+#define RGBLIGHT_SPLIT
+#define RGBLED_SPLIT { 6, 6 }
 #define RGBLIGHT_SLEEP
-*/
+
