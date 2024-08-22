@@ -1,7 +1,8 @@
 #include QMK_KEYBOARD_H
 
 enum layer_number {
-  _QWERTY = 0,
+  _COLEMAK_DH = 0,
+  _QWERTY,
   _GAME,
   _LOWER,
   _RAISE,
@@ -10,6 +11,28 @@ enum layer_number {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+/* COLEMAK-DH
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | GESC |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  =   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   Q  |   W  |   F  |   P  |   B  |                    |   J  |   L  |   U  |   Y  |   ;  |  -   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |LShift|   A  |   R  |   S  |   T  |   G  |-------.    ,-------|   M  |   N  |   E  |   I  |   O  |  '   |
+ * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
+ * |LCTRL |   Z  |   X  |   C  |   D  |   V  |-------|    |-------|   K  |   H  |   ,  |   .  |   /  |RShift|
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP| Del  |
+ *                   |[Caps]|      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+
+[_COLEMAK_DH] = LAYOUT(
+  QK_GESC,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_EQL,
+  KC_TAB,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_B,                     KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS,
+  SC_LSPO,  KC_A,   KC_R,    KC_S,    KC_T,    KC_G,                     KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_D,    KC_V, KC_LBRC,  KC_RBRC,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
+                        MT(MOD_LALT, KC_CAPS), KC_LGUI, TT(_LOWER), KC_SPC, KC_ENT, TT(_RAISE), KC_BSPC, KC_DEL
+),
 /* QWERTY
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | GESC |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  =   |
@@ -30,38 +53,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS,
   SC_LSPO,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
-                        MT(MOD_LALT, KC_CAPS), KC_LGUI, MO(_LOWER), KC_SPC, KC_ENT, MO(_RAISE), KC_BSPC, KC_DEL
+                        MT(MOD_LALT, KC_CAPS), KC_LGUI, TT(_LOWER), KC_SPC, KC_ENT, TT(_RAISE), KC_BSPC, KC_DEL
 ),
 /* GAMING
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |  ESC |   1  |   2  |   3  |   4  |   5  |                    |      |      |      |      |      | Vol+ |
+ * |  ESC |   1  |   2  |   3  |   4  |   5  |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   6  |   7  |   Q  |   W  |   E  |   R  |                    |      |      |      |      |      | Vol- |
+ * |   6  |   7  |   Q  |   W  |   E  |   R  |                    | Vol+ |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   8  |LShift|   A  |   S  |   D  |   F  |-------.    ,-------|      |      |      |      |      | Mute |
+ * |   8  |LShift|   A  |   S  |   D  |   F  |-------.    ,-------| Vol- |      |      |      |      |      |
  * |------+------+------+------+------+------|   G   |    |       |------+------+------+------+------+------|
- * |   9  | Crtl |   Z  |   X  |   C  |   V  |-------|    |-------|      |      |      |      |      | Play |
+ * |   9  | Crtl |   Z  |   X  |   C  |   V  |-------|    |-------| Mute |      |      |      |      |  F4  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |  Tab |  Alt |LOWER | /Space  /       \Enter \  |RAISE | LGUI |      |
+ *                   |  Alt |  Tab |LOWER | /Space  /       \Enter \  |RAISE | LGUI |  Alt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
 [_GAME] = LAYOUT(
-  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,
-  KC_6,    KC_7,    KC_Q,    KC_W,    KC_E,    KC_R,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD,
-  KC_8,    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,
-  KC_9,    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V, KC_G,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY,
-                             KC_TAB, KC_LALT, MO(_LOWER),  KC_SPACE, KC_ENT,  MO(_RAISE), KC_LGUI, XXXXXXX
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_6,    KC_7,    KC_Q,    KC_W,    KC_E,    KC_R,                     KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_8,    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                     KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_9,    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V, KC_G,      XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F4,
+                             KC_LALT, KC_TAB, TT(_LOWER),  KC_SPACE, KC_ENT,  TT(_RAISE), KC_LGUI, KC_RALT
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |      |   7  |   8  |   9  |   -  |   /  |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |      |   7  |   8  |   9  |   -  |   /  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------.    ,-------|      |   4  |   5  |   6  |   +  |   *  |
+ * |      |  F6  |  F7  |  F8  |  F9  | F10  |-------.    ,-------|      |   4  |   5  |   6  |   +  |   *  |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |   ^  |   &  |   *  |   (  |   )  |-------|    |-------|   0  |   1  |   2  |   3  |   \  |   |  |
+ * |      | F11  | F12  | F13  | F14  | F15  |-------|    |-------|   0  |   1  |   2  |   3  |   \  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP|  Del |
  *                   |[Caps]|      |      |/       /         \      \ |      |      |      |
@@ -69,19 +92,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     _______, KC_7,    KC_8,   KC_F9,   KC_PMNS, KC_PSLS,
-  KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    _______, KC_4,    KC_5,   KC_6,    KC_PPLS, KC_PAST,
-  _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, _______, KC_0,    KC_1,    KC_2,   KC_3,    KC_BSLS, KC_PIPE,
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     _______, KC_7,    KC_8,   KC_9,    KC_PMNS, KC_PSLS,
+  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    _______, KC_4,    KC_5,   KC_6,    KC_PPLS, KC_PAST,
+  _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, _______, _______,  KC_0,    KC_1,    KC_2,   KC_3,    KC_BSLS, KC_PIPE,
                              _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |  ^Up |      | Home |                    |      |      |      |      |      |      |
+ * |      |      |      |  ^Up |      | Home |                    |      |      |      |      |      |QWERTY|
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      |^Left |  Up  |^Right| PgUp |                    | Vol+ | Prev | Play | Next |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |      | Left | Down |Right | PgDn |-------.    ,-------| Vol- |      |      |      |      |      |
- * |------+------+------+------+------+------|QWERTY |    |GAMING |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|GAMING |    |COLEMAK|------+------+------+------+------+------|
  * |      |      |      |^Down |      | End  |-------|    |-------| Mute |      |      |      |      |Sleep |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE |BackSP|  Del |
@@ -90,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  _______, _______, _______,    C(KC_UP),    _______,       KC_HOME,                          _______, _______, _______, _______, _______, _______,
+  _______, _______, _______,    C(KC_UP),    _______,       KC_HOME,                          _______, _______, _______, _______, _______, DF(_QWERTY),
   _______, _______, C(KC_LEFT), KC_UP,       C(KC_RGHT),    KC_PGUP,                          KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
   _______, _______, KC_LEFT,    KC_DOWN,     KC_RGHT,       KC_PGDN,                          KC_VOLD, _______, _______, _______, _______, _______,
-  _______, _______, _______,    C(KC_DOWN),  _______,       KC_END,  DF(_QWERTY), DF(_GAME),  KC_MUTE, _______, _______, _______, _______, KC_SLEP,
+  _______, _______, _______,    C(KC_DOWN),  _______,       KC_END,  DF(_GAME), DF(_COLEMAK_DH),  KC_MUTE, _______, _______, _______, _______, KC_SLEP,
                              _______, _______, _______,              _______, _______,        _______, _______, _______
 ),
 /* ADJUST
@@ -121,26 +144,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   //return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  switch (get_highest_layer(state)) {
-    case _RAISE:
-        rgblight_setrgb (0x00,  0x00, 0xFF);
-        break;
-    case _LOWER:
-        rgblight_setrgb (0xFF,  0x00, 0x00);
-        break;
-    case _GAME:
-        rgblight_setrgb (0x27,  0xAE, 0x96);
-        break;
-    case _QWERTY:
-        rgblight_setrgb (0xAE,  0xF0, 0xE8);
-        break;
-    default: //  for any other layers, or the default layer
-        rgblight_setrgb (0xFF,  0xFF, 0xFF);
-        break;
-    }
+  // switch (get_highest_layer(state)) {
+  //   case _RAISE:
+  //       rgblight_setrgb (0x00,  0x00, 0xFF);
+  //       break;
+  //   case _LOWER:
+  //       rgblight_setrgb (0xFF,  0x00, 0x00);
+  //       break;
+  //   case _GAME:
+  //       rgblight_setrgb (0x27,  0xAE, 0x96);
+  //       break;
+  //   case _QWERTY:
+  //       rgblight_setrgb (0xAE,  0xF0, 0xE8);
+  //       break;
+  //   default: //  for any other layers, or the default layer
+  //       rgblight_setrgb (0xFF,  0xFF, 0xFF);
+  //       break;
+  //   }
   return state;
 }
 
+// bool rgb_matrix_indicators_kb(void) {
+//     if (!rgb_matrix_indicators_user()) {
+//         return false;
+//     }
+//     rgb_matrix_set_color_all(0, 0, 0);
+//     return true;
+// }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
