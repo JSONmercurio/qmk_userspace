@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
 
 // The pin connected to the data pin of the LEDs
 //#define WS2812_DI_PIN D7
